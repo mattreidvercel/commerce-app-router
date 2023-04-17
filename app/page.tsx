@@ -1,91 +1,102 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from './page.module.css'
+import Image from "next/image";
+import { Suspense, useState } from "react";
+import Price from "@/components/Price";
+import Description from "@/components/Description";
+import Reviews from "@/components/Reviews";
+import ProductTitle from "@/components/ProductTitle";
+import Images from "@/components/Images";
 
-const inter = Inter({ subsets: ['latin'] })
+export const runtime = "experimental-edge";
 
-export default function Home() {
+function classNames(...classes: any) {
+  return classes.filter(Boolean).join(" ");
+}
+
+export default function Product() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="bg-white">
+      <div className="pb-16 pt-6 sm:pb-24">
+        <div className="mx-auto mt-8 max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
+            <div className="lg:col-span-5 lg:col-start-8">
+              <div className="flex justify-between">
+                <Suspense
+                  fallback={
+                    <div className="w-1/3 h-[28px] animate-pulse bg-gray-500 rounded"></div>
+                  }
+                >
+                  {/* @ts-expect-error Server Component */}
+                  <ProductTitle />
+                </Suspense>
+                <div className="text-xl font-medium text-gray-900">
+                  <Suspense
+                    fallback={
+                      <div className="w-1/3 h-[28px] animate-pulse bg-gray-500 rounded"></div>
+                    }
+                  >
+                    {/* @ts-expect-error Server Component */}
+                    <Price />
+                  </Suspense>
+                </div>
+              </div>
+              {/* Reviews */}
+              <div className="mt-4">
+                <Suspense
+                  fallback={
+                    <div className="w-1/2 h-[20px] animate-pulse bg-gray-500 rounded"></div>
+                  }
+                >
+                  {/* @ts-expect-error Server Component */}
+                  <Reviews />
+                </Suspense>
+              </div>
+            </div>
+
+            {/* Image gallery */}
+            <div className="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0">
+              <Suspense
+                fallback={
+                  <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8">
+                    <div className="lg:col-span-2 lg:row-span-2 rounded-lg h-[696px] animate-pulse bg-gray-500"></div>
+                    <div className="rounded-lg h-[332px] animate-pulse bg-gray-500"></div>
+                    <div className="rounded-lg h-[332px] animate-pulse bg-gray-500"></div>
+                  </div>
+                }
+              >
+                {/* @ts-expect-error Server Component */}
+                <Images />
+              </Suspense>
+            </div>
+
+            <div className="mt-8 lg:col-span-5">
+              <form>
+                <button
+                  type="submit"
+                  className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Add to cart
+                </button>
+              </form>
+
+              {/* Product details */}
+              <div className="mt-10">
+                <h2 className="text-sm font-medium text-gray-900">
+                  Description
+                </h2>
+
+                <Suspense
+                  fallback={
+                    <div className="w-full h-[28px] animate-pulse bg-gray-500 rounded"></div>
+                  }
+                >
+                  {/* @ts-expect-error Server Component */}
+                  <Description />
+                </Suspense>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </div>
+  );
 }
