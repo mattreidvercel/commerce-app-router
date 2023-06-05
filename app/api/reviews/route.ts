@@ -7,7 +7,7 @@ export async function GET(request: Request) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(1);
-      }, 15000);
+      }, 1000);
     });
   };
 
