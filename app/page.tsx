@@ -6,7 +6,7 @@ import Reviews from "@/components/Reviews";
 import ProductTitle from "@/components/ProductTitle";
 import Images from "@/components/Images";
 
-export const runtime = "experimental-edge";
+export const runtime = "edge";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
